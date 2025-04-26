@@ -1,0 +1,45 @@
+{
+    "name": "makaveli/laravel-crudler",
+    "description": "Advanced Crudler for Laravel",
+    "keywords": ["laravel", "framework"],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^10.10|^11.0|^12.0",
+        "makaveli/laravel-logger": "1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelCrudler\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Ma1kaveli/laravel-query-builder"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Ma1kaveli/laravel-converter"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Ma1kaveli/laravel-logger"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Ma1kaveli/laravel-soft-model-base"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "dont-discover": [],
+            "providers": [
+                "LaravelCrudler\\Providers\\CrudlerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
