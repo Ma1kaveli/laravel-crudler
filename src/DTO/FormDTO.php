@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelCrudler\DTO;
+namespace Crudler\DTO;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
-use LaravelConverter\DTO\ConverterDTO;
+use Converter\DTO\ConverterDTO;
 
 abstract class FormDTO {
     public function __construct(

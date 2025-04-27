@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelCrudler\Providers;
+namespace Crudler\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

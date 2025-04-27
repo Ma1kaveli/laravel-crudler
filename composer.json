@@ -7,11 +7,11 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^10.10|^11.0|^12.0",
-        "makaveli/laravel-logger": "1.0.0"
+        "makaveli/laravel-logger": "1.0.1"
     },
     "autoload": {
         "psr-4": {
-            "LaravelCrudler\\": "src/"
+            "Crudler\\": "src/"
         }
     },
     "repositories": [
@@ -36,7 +36,7 @@
         "laravel": {
             "dont-discover": [],
             "providers": [
-                "LaravelCrudler\\Providers\\CrudlerServiceProvider"
+                "Crudler\\Providers\\CrudlerServiceProvider"
             ]
         }
     },
