@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "948020fecf6faf3201cfbf68a727222e",
+    "content-hash": "b39a2fd3b11b6ebfcf406963c88e382a",
     "packages": [
         {
             "name": "brick/math",
@@ -1994,16 +1994,16 @@
         },
         {
             "name": "makaveli/laravel-logger",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-logger.git",
-                "reference": "dd95385adde768c212fc8694c425b37a0b48ff64"
+                "reference": "a69d7b5b4e6eca396534a7b784bc4ef1591ca09e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/dd95385adde768c212fc8694c425b37a0b48ff64",
-                "reference": "dd95385adde768c212fc8694c425b37a0b48ff64",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/a69d7b5b4e6eca396534a7b784bc4ef1591ca09e",
+                "reference": "a69d7b5b4e6eca396534a7b784bc4ef1591ca09e",
                 "shasum": ""
             },
             "require": {
@@ -2035,10 +2035,10 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.2",
+                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.3",
                 "issues": "https://github.com/Ma1kaveli/laravel-logger/issues"
             },
-            "time": "2025-04-28T12:54:23+00:00"
+            "time": "2025-04-28T17:37:26+00:00"
         },
         {
             "name": "makaveli/laravel-query-builder",
