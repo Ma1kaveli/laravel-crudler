@@ -58,7 +58,7 @@ abstract class FormDTO {
      */
     protected static function getCommonRequestFields(): array
     {
-        return ['organization_id'];
+        return config('crudler.form_dto.common_request_fields');
     }
 
     /**
