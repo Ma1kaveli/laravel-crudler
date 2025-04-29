@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b39a2fd3b11b6ebfcf406963c88e382a",
+    "content-hash": "9c6fe622adf01f33596c089ff4da749d",
     "packages": [
         {
             "name": "brick/math",
@@ -1994,21 +1994,21 @@
         },
         {
             "name": "makaveli/laravel-logger",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-logger.git",
-                "reference": "a69d7b5b4e6eca396534a7b784bc4ef1591ca09e"
+                "reference": "0dc595eb6952715b3e552d6f62d5f1bbebcfb8d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/a69d7b5b4e6eca396534a7b784bc4ef1591ca09e",
-                "reference": "a69d7b5b4e6eca396534a7b784bc4ef1591ca09e",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/0dc595eb6952715b3e552d6f62d5f1bbebcfb8d1",
+                "reference": "0dc595eb6952715b3e552d6f62d5f1bbebcfb8d1",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^10.10|^11.0|^12.0",
-                "makaveli/laravel-query-builder": "1.0.9",
+                "makaveli/laravel-query-builder": "1.0.10",
                 "php": "^8.2"
             },
             "type": "library",
@@ -2035,23 +2035,23 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.3",
+                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.4",
                 "issues": "https://github.com/Ma1kaveli/laravel-logger/issues"
             },
-            "time": "2025-04-28T17:37:26+00:00"
+            "time": "2025-04-29T08:29:20+00:00"
         },
         {
             "name": "makaveli/laravel-query-builder",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-query-builder.git",
-                "reference": "38519464a31f051ffa985b6140c9de062c1ce529"
+                "reference": "616037a0a91ee27f5cb75bfe9d72fbc083e74adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-query-builder/zipball/38519464a31f051ffa985b6140c9de062c1ce529",
-                "reference": "38519464a31f051ffa985b6140c9de062c1ce529",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-query-builder/zipball/616037a0a91ee27f5cb75bfe9d72fbc083e74adf",
+                "reference": "616037a0a91ee27f5cb75bfe9d72fbc083e74adf",
                 "shasum": ""
             },
             "require": {
@@ -2082,16 +2082,16 @@
                     "email": "mikhail.udovenko.02@mail.ru"
                 }
             ],
-            "description": "Advanced Query Builder for Laravel",
+            "description": "Query Builder for Laravel",
             "keywords": [
                 "framework",
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-query-builder/tree/1.0.9",
+                "source": "https://github.com/Ma1kaveli/laravel-query-builder/tree/1.0.10",
                 "issues": "https://github.com/Ma1kaveli/laravel-query-builder/issues"
             },
-            "time": "2025-04-28T12:50:54+00:00"
+            "time": "2025-04-29T08:26:18+00:00"
         },
         {
             "name": "monolog/monolog",
