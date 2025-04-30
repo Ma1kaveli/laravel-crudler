@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c6fe622adf01f33596c089ff4da749d",
+    "content-hash": "434ba496d45cf52cdc8c4065627d113e",
     "packages": [
         {
             "name": "brick/math",
@@ -1056,16 +1056,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.10.2",
+            "version": "v12.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0f123cc857bc177abe4d417448d4f7164f71802a"
+                "reference": "050b2dfeaf6fff9e08e84b355822636492fb45f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0f123cc857bc177abe4d417448d4f7164f71802a",
-                "reference": "0f123cc857bc177abe4d417448d4f7164f71802a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/050b2dfeaf6fff9e08e84b355822636492fb45f4",
+                "reference": "050b2dfeaf6fff9e08e84b355822636492fb45f4",
                 "shasum": ""
             },
             "require": {
@@ -1267,7 +1267,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-04-24T14:11:20+00:00"
+            "time": "2025-04-29T20:18:16+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -1994,21 +1994,21 @@
         },
         {
             "name": "makaveli/laravel-logger",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-logger.git",
-                "reference": "0dc595eb6952715b3e552d6f62d5f1bbebcfb8d1"
+                "reference": "6c426ed2adb0ebae5bedf429064f8c027a727ea0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/0dc595eb6952715b3e552d6f62d5f1bbebcfb8d1",
-                "reference": "0dc595eb6952715b3e552d6f62d5f1bbebcfb8d1",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/6c426ed2adb0ebae5bedf429064f8c027a727ea0",
+                "reference": "6c426ed2adb0ebae5bedf429064f8c027a727ea0",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^10.10|^11.0|^12.0",
-                "makaveli/laravel-query-builder": "1.0.10",
+                "makaveli/laravel-query-builder": "1.0.11",
                 "php": "^8.2"
             },
             "type": "library",
@@ -2035,23 +2035,23 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.4",
+                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.5",
                 "issues": "https://github.com/Ma1kaveli/laravel-logger/issues"
             },
-            "time": "2025-04-29T08:29:20+00:00"
+            "time": "2025-04-30T09:58:25+00:00"
         },
         {
             "name": "makaveli/laravel-query-builder",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-query-builder.git",
-                "reference": "616037a0a91ee27f5cb75bfe9d72fbc083e74adf"
+                "reference": "630ac783cdb43e6d5d63ce6bf3781ff8985f0064"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-query-builder/zipball/616037a0a91ee27f5cb75bfe9d72fbc083e74adf",
-                "reference": "616037a0a91ee27f5cb75bfe9d72fbc083e74adf",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-query-builder/zipball/630ac783cdb43e6d5d63ce6bf3781ff8985f0064",
+                "reference": "630ac783cdb43e6d5d63ce6bf3781ff8985f0064",
                 "shasum": ""
             },
             "require": {
@@ -2088,10 +2088,10 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-query-builder/tree/1.0.10",
+                "source": "https://github.com/Ma1kaveli/laravel-query-builder/tree/1.0.11",
                 "issues": "https://github.com/Ma1kaveli/laravel-query-builder/issues"
             },
-            "time": "2025-04-29T08:26:18+00:00"
+            "time": "2025-04-30T09:56:05+00:00"
         },
         {
             "name": "monolog/monolog",
