@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "434ba496d45cf52cdc8c4065627d113e",
+    "content-hash": "0df75a1c01aadabfd68aa2dc36ed3ff0",
     "packages": [
         {
             "name": "brick/math",
@@ -1056,16 +1056,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.11.0",
+            "version": "v12.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "050b2dfeaf6fff9e08e84b355822636492fb45f4"
+                "reference": "8f6cd73696068c28f30f5964556ec9d14e5d90d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/050b2dfeaf6fff9e08e84b355822636492fb45f4",
-                "reference": "050b2dfeaf6fff9e08e84b355822636492fb45f4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/8f6cd73696068c28f30f5964556ec9d14e5d90d7",
+                "reference": "8f6cd73696068c28f30f5964556ec9d14e5d90d7",
                 "shasum": ""
             },
             "require": {
@@ -1267,7 +1267,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-04-29T20:18:16+00:00"
+            "time": "2025-05-01T16:13:12+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -1994,21 +1994,21 @@
         },
         {
             "name": "makaveli/laravel-logger",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-logger.git",
-                "reference": "6c426ed2adb0ebae5bedf429064f8c027a727ea0"
+                "reference": "2a404ab089fe8da029bf19087beac5b5f2bc0113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/6c426ed2adb0ebae5bedf429064f8c027a727ea0",
-                "reference": "6c426ed2adb0ebae5bedf429064f8c027a727ea0",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/2a404ab089fe8da029bf19087beac5b5f2bc0113",
+                "reference": "2a404ab089fe8da029bf19087beac5b5f2bc0113",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^10.10|^11.0|^12.0",
-                "makaveli/laravel-query-builder": "1.0.11",
+                "makaveli/laravel-query-builder": "1.0.12",
                 "php": "^8.2"
             },
             "type": "library",
@@ -2035,23 +2035,23 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.5",
+                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.6",
                 "issues": "https://github.com/Ma1kaveli/laravel-logger/issues"
             },
-            "time": "2025-04-30T09:58:25+00:00"
+            "time": "2025-05-01T16:36:26+00:00"
         },
         {
             "name": "makaveli/laravel-query-builder",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-query-builder.git",
-                "reference": "630ac783cdb43e6d5d63ce6bf3781ff8985f0064"
+                "reference": "d2157cda36e31561d6b1b7589e5734188eb9987d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-query-builder/zipball/630ac783cdb43e6d5d63ce6bf3781ff8985f0064",
-                "reference": "630ac783cdb43e6d5d63ce6bf3781ff8985f0064",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-query-builder/zipball/d2157cda36e31561d6b1b7589e5734188eb9987d",
+                "reference": "d2157cda36e31561d6b1b7589e5734188eb9987d",
                 "shasum": ""
             },
             "require": {
@@ -2088,10 +2088,10 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-query-builder/tree/1.0.11",
+                "source": "https://github.com/Ma1kaveli/laravel-query-builder/tree/1.0.12",
                 "issues": "https://github.com/Ma1kaveli/laravel-query-builder/issues"
             },
-            "time": "2025-04-30T09:56:05+00:00"
+            "time": "2025-05-01T16:34:08+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5521,16 +5521,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v5.6.1",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "a59a13791077fe3d44f90e7133eb68e7d22eaff2"
+                "reference": "24ac4c74f91ee2c193fa1aaa5c249cb0822809af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/a59a13791077fe3d44f90e7133eb68e7d22eaff2",
-                "reference": "a59a13791077fe3d44f90e7133eb68e7d22eaff2",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/24ac4c74f91ee2c193fa1aaa5c249cb0822809af",
+                "reference": "24ac4c74f91ee2c193fa1aaa5c249cb0822809af",
                 "shasum": ""
             },
             "require": {
@@ -5589,7 +5589,7 @@
             ],
             "support": {
                 "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.1"
+                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.2"
             },
             "funding": [
                 {
@@ -5601,7 +5601,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-20T21:52:34+00:00"
+            "time": "2025-04-30T23:37:27+00:00"
         },
         {
             "name": "voku/portable-ascii",
