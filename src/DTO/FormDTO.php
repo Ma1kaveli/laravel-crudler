@@ -10,7 +10,7 @@ use Converter\DTO\ConverterDTO;
 abstract class FormDTO {
     public function __construct(
         public readonly Authenticatable $user,
-        public int $organizationId,
+        public ?int $organizationId,
         public bool $userIsBase,
         public ?int $id = null,
     ) {}
