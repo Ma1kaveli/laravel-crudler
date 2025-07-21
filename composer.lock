@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "589cdf097807a790dc5fb74ccb259414",
+    "content-hash": "05b2948b7ba0036ff3d5b3ccda96b964",
     "packages": [
         {
             "name": "brick/math",
@@ -1994,16 +1994,16 @@
         },
         {
             "name": "makaveli/laravel-logger",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-logger.git",
-                "reference": "770f4240705e2abb1f58ed334c0d937532c39c34"
+                "reference": "5fa56af10e227ddc7640448fbe36804e61cd2ede"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/770f4240705e2abb1f58ed334c0d937532c39c34",
-                "reference": "770f4240705e2abb1f58ed334c0d937532c39c34",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-logger/zipball/5fa56af10e227ddc7640448fbe36804e61cd2ede",
+                "reference": "5fa56af10e227ddc7640448fbe36804e61cd2ede",
                 "shasum": ""
             },
             "require": {
@@ -2035,10 +2035,10 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.9",
+                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.10",
                 "issues": "https://github.com/Ma1kaveli/laravel-logger/issues"
             },
-            "time": "2025-05-23T10:59:45+00:00"
+            "time": "2025-07-21T10:58:22+00:00"
         },
         {
             "name": "makaveli/laravel-query-builder",
@@ -2092,6 +2092,53 @@
                 "issues": "https://github.com/Ma1kaveli/laravel-query-builder/issues"
             },
             "time": "2025-05-23T10:46:10+00:00"
+        },
+        {
+            "name": "makaveli/laravel-soft-model-base",
+            "version": "1.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ma1kaveli/laravel-soft-model-base.git",
+                "reference": "be7a90c44c97b5620f036136674e4604bbb8b0bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ma1kaveli/laravel-soft-model-base/zipball/be7a90c44c97b5620f036136674e4604bbb8b0bc",
+                "reference": "be7a90c44c97b5620f036136674e4604bbb8b0bc",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.10|^11.0|^12.0",
+                "makaveli/laravel-logger": "^1.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "dont-discover": [],
+                    "providers": [
+                        "SoftModelBase\\Providers\\SoftModelBaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SoftModelBase\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Advanced Soft Model for Laravel",
+            "keywords": [
+                "framework",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/Ma1kaveli/laravel-soft-model-base/tree/1.0.11",
+                "issues": "https://github.com/Ma1kaveli/laravel-soft-model-base/issues"
+            },
+            "time": "2025-07-21T11:02:38+00:00"
         },
         {
             "name": "monolog/monolog",
