@@ -1994,7 +1994,7 @@
         },
         {
             "name": "makaveli/laravel-logger",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ma1kaveli/laravel-logger.git",
@@ -2035,7 +2035,7 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.12",
+                "source": "https://github.com/Ma1kaveli/laravel-logger/tree/1.0.13",
                 "issues": "https://github.com/Ma1kaveli/laravel-logger/issues"
             },
             "time": "2025-07-22T13:50:47+00:00"
