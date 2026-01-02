@@ -83,7 +83,7 @@ class ControllerCreateBuilder
             throw new LogicException('Request not found');
         }
 
-        return new ControllerCreateDTO(
+        return ControllerCreateDTO::start(
             formDTO: $this->formDTO,
             requestTag: $this->requestTag,
             additionalData: $this->additionalData,

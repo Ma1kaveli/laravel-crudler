@@ -51,4 +51,19 @@ class ServiceMapperFieldDTO
     public function isCallable(): bool {
         return is_string($this->key) && (is_callable($this->value) || $this->value instanceof Closure);
     }
+
+    /**
+     * Summary of start
+     *
+     * @param string|callable $value
+     * @param string|int $key
+     * 
+     * @return ServiceMapperFieldDTO
+     */
+    public static function start(string|callable $value, string|int $key): self {
+        return new self(
+            raw: $value,
+            key: $key
+        );
+    }
 }

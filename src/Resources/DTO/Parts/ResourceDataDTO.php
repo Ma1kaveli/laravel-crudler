@@ -38,4 +38,19 @@ class ResourceDataDTO
 
         throw new \InvalidArgumentException('Invalid type for ResourceDataDTO value');
     }
+
+    /**
+     * Summary of start
+     *
+     * @param string|array|callable $value
+     * @param string|int|null $key = null
+     *
+     * @return ResourceDataDTO
+     */
+    public static function start(string|array|callable $value, string|int|null $key = null): self {
+        return new self(
+            raw: $value,
+            key: $key
+        );
+    }
 }

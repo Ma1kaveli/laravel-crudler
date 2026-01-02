@@ -15,6 +15,13 @@ class CrudlerRequestDTO {
         $this->tags = $tags;
     }
 
+    /**
+     * Summary of start
+     *
+     * @param array $tags
+     * 
+     * @return CrudlerRequestDTO
+     */
     public static function start(array $tags): static
     {
         return new self(

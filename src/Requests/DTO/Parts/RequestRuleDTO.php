@@ -29,4 +29,18 @@ class RequestRuleDTO
 
         throw new \InvalidArgumentException('Invalid type for _CrudlerRequestRuleDTO value');
     }
+
+    /**
+     * Summary of start
+     *
+     * @param string|object|callable $raw
+     * 
+     * @return RequestRuleDTO
+     */
+    public static function start(string|object|callable $raw): self
+    {
+        return new self(
+            raw: $raw
+        );
+    }
 }

@@ -26,7 +26,32 @@ class ControllerUpdateDTO
         public readonly ?string $requestTag = 'update',
         public readonly array $additionalData = [],
         public readonly ?string $successMessage = null,
-    ) {
-        $this->successMessage ??= config('crudler.controllers.success_update_message');
+    ) {}
+
+    /**
+     * Summary of start
+     *
+     * @param IUpdateCallableDTO|FormDTO $formDTO
+     * @param FormRequest|CrudlerRequestDTO $request
+     * @param ?string $requestTag = 'update'
+     * @param array $additionalData = []
+     * @param ?string $successMessage = null
+     *
+     * @return ControllerUpdateDTO
+     */
+    public static function start(
+        IUpdateCallableDTO|FormDTO $formDTO,
+        FormRequest|CrudlerRequestDTO $request,
+        ?string $requestTag = 'update',
+        array $additionalData = [],
+        ?string $successMessage = null,
+    ): self {
+        return new self(
+            formDTO: $formDTO,
+            request: $request,
+            requestTag: $requestTag,
+            additionalData: $additionalData,
+            successMessage: $successMessage ??= config('crudler.controllers.success_update_message')
+        );
     }
 }

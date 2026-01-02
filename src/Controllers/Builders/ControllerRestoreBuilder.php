@@ -73,7 +73,7 @@ class ControllerRestoreBuilder
     }
 
     public function build(): ControllerRestoreDTO {
-        return new ControllerRestoreDTO(
+        return ControllerRestoreDTO::start(
             onceDTO: $this->onceCallableDTO,
             requestTag: $this->requestTag,
             request: $this->request,

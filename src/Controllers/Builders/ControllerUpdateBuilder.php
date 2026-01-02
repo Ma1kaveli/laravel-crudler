@@ -83,7 +83,7 @@ class ControllerUpdateBuilder
             throw new LogicException('Request not found');
         }
 
-        return new ControllerUpdateDTO(
+        return ControllerUpdateDTO::start(
             formDTO: $this->formDTO,
             requestTag: $this->requestTag,
             additionalData: $this->additionalData,

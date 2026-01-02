@@ -14,4 +14,17 @@ class ResourceMethodDTO
             ? $callback
             : Closure::fromCallable($callback);
     }
+
+    /**
+     * Summary of start
+     *
+     * @param Closure|callable $callback
+     * 
+     * @return ResourceMethodDTO
+     */
+    public static function start(Closure|callable $callback): self {
+        return new self(
+            callback: $callback
+        );
+    }
 }

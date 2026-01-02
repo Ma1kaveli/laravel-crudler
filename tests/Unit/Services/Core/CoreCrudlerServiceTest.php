@@ -29,8 +29,8 @@ class CoreCrudlerServiceTest extends TestCase
         $dto->name = 'John';
 
         $mapper = [
-            new ServiceMapperFieldDTO('name', 0),
-            new ServiceMapperFieldDTO(fn(FormDTO $d) => strtoupper($d->name), 'upper'),
+            ServiceMapperFieldDTO::start('name', 0),
+            ServiceMapperFieldDTO::start(fn(FormDTO $d) => strtoupper($d->name), 'upper'),
         ];
 
         $service = new CoreCrudlerService(\stdClass::class);

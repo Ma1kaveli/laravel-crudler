@@ -42,7 +42,7 @@ class ControllerShowBuilder
     }
 
     public function build(): ControllerShowDTO {
-        return new ControllerShowDTO(
+        return ControllerShowDTO::start(
             showDTO: $this->showCallableDTO,
             additionalData: $this->additionalData,
         );

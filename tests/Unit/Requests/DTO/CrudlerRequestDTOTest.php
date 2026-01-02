@@ -18,25 +18,25 @@ class CrudlerRequestDTOTest extends TestCase
     public function test_request_rule_DTO_initialization(): void
     {
         // строка
-        $rule = new RequestRuleDTO('required');
+        $rule = RequestRuleDTO::start('required');
         $this->assertSame('required', $rule->value);
 
         // объект
         $obj = new \stdClass();
-        $rule = new RequestRuleDTO($obj);
+        $rule = RequestRuleDTO::start($obj);
         $this->assertSame($obj, $rule->value);
 
         // callable (Closure)
         $closure = fn() => true;
-        $rule = new RequestRuleDTO($closure);
+        $rule = RequestRuleDTO::start($closure);
         $this->assertInstanceOf(\Closure::class, $rule->value);
 
         // callable (не Closure)
-        $rule = new RequestRuleDTO(fn() => true);
+        $rule = RequestRuleDTO::start(fn() => true);
         $this->assertInstanceOf(\Closure::class, $rule->value);
 
         // int
-        $rule = new RequestRuleDTO(123);
+        $rule = RequestRuleDTO::start(123);
         $this->assertSame('123', $rule->value);
     }
 

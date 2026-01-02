@@ -73,7 +73,7 @@ class ControllerListBuilder
 
     public function build(): ControllerListDTO
     {
-        return new ControllerListDTO(
+        return ControllerListDTO::start(
             dto: $this->dto,
             isGetAll: $this->isGetAll,
             isPaginateResponse: $this->isPaginateResponse,

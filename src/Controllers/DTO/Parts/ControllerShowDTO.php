@@ -16,4 +16,22 @@ class ControllerShowDTO
         public readonly ?IShowCallableDTO $showDTO = null,
         public readonly array $additionalData = [],
     ) {}
+
+    /**
+     * Summary of start
+     *
+     * @param ?IShowCallableDTO $showDTO = null
+     * @param array $additionalData = []
+     *
+     * @return ControllerShowDTO
+     */
+    public static function start(
+        ?IShowCallableDTO $showDTO = null,
+        array $additionalData = [],
+    ): self {
+        return new self(
+            showDTO: $showDTO,
+            additionalData: $additionalData
+        );
+    }
 }

@@ -9,7 +9,7 @@ class ServiceMapperFieldDTOTest extends TestCase
 {
     public function test_simple_string_mapper(): void
     {
-        $dto = new ServiceMapperFieldDTO('email', 0);
+        $dto = ServiceMapperFieldDTO::start('email', 0);
 
         $this->assertTrue($dto->isSimple());
         $this->assertFalse($dto->isCallable());
@@ -20,7 +20,7 @@ class ServiceMapperFieldDTOTest extends TestCase
     {
         $callable = fn () => 'value';
 
-        $dto = new ServiceMapperFieldDTO($callable, 'email');
+        $dto = ServiceMapperFieldDTO::start($callable, 'email');
 
         $this->assertTrue($dto->isCallable());
         $this->assertFalse($dto->isSimple());
@@ -31,6 +31,6 @@ class ServiceMapperFieldDTOTest extends TestCase
     {
         $this->expectException(\TypeError::class);
 
-        new ServiceMapperFieldDTO([], 'email');
+        ServiceMapperFieldDTO::start([], 'email');
     }
 }

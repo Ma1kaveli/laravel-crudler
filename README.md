@@ -21,7 +21,7 @@ Crudler расширяет базовые компоненты Laravel (e.g. For
 ### Requirements
 - PHP ^8.2
 - Laravel ^10.10 | ^11.0 | ^12.0
-- Dependencies: makaveli/laravel-logger, makaveli/laravel-soft-model-base, makaveli/laravel-core (устанавливаются автоматически)
+- Dependencies: makaveli/laravel-logger, makaveli/laravel-core (устанавливаются автоматически)
 
 ### Steps
 1. Установите пакет через Composer:

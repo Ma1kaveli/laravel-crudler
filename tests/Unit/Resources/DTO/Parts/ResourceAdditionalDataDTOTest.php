@@ -11,7 +11,7 @@ class ResourceAdditionalDataDTOTest extends TestCase
 {
     public function test_accepts_string_value(): void
     {
-        $dto = new ResourceAdditionalDataDTO('test', 'key');
+        $dto = ResourceAdditionalDataDTO::start('test', 'key');
 
         $this->assertSame('test', $dto->value);
         $this->assertSame('key', $dto->key);
@@ -21,7 +21,7 @@ class ResourceAdditionalDataDTOTest extends TestCase
     {
         $closure = fn () => 'value';
 
-        $dto = new ResourceAdditionalDataDTO($closure, 'key');
+        $dto = ResourceAdditionalDataDTO::start($closure, 'key');
 
         $this->assertInstanceOf(Closure::class, $dto->value);
     }
@@ -30,7 +30,7 @@ class ResourceAdditionalDataDTOTest extends TestCase
     {
         $callable = 'strtoupper';
 
-        $dto = new ResourceAdditionalDataDTO($callable, 'key');
+        $dto = ResourceAdditionalDataDTO::start($callable, 'key');
 
         $this->assertInstanceOf(Closure::class, $dto->value);
         $this->assertSame('TEST', ($dto->value)('test'));
@@ -38,7 +38,7 @@ class ResourceAdditionalDataDTOTest extends TestCase
 
     public function test_int_is_casted_to_string(): void
     {
-        $dto = new ResourceAdditionalDataDTO(123);
+        $dto = ResourceAdditionalDataDTO::start(123);
         $this->assertSame('123', $dto->value);
     }
 }

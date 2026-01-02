@@ -11,7 +11,7 @@ class ResourceDataDTOTest extends TestCase
 {
     public function test_accepts_string(): void
     {
-        $dto = new ResourceDataDTO('name', 'key');
+        $dto = ResourceDataDTO::start('name', 'key');
 
         $this->assertSame('name', $dto->value);
         $this->assertSame('key', $dto->key);
@@ -19,21 +19,21 @@ class ResourceDataDTOTest extends TestCase
 
     public function test_accepts_array(): void
     {
-        $dto = new ResourceDataDTO(['a' => 1], 'key');
+        $dto = ResourceDataDTO::start(['a' => 1], 'key');
 
         $this->assertSame(['a' => 1], $dto->value);
     }
 
     public function test_accepts_closure(): void
     {
-        $dto = new ResourceDataDTO(fn () => 'test');
+        $dto = ResourceDataDTO::start(fn () => 'test');
 
         $this->assertInstanceOf(Closure::class, $dto->value);
     }
 
     public function test_accepts_callable_and_wraps(): void
     {
-        $dto = new ResourceDataDTO('strlen');
+        $dto = ResourceDataDTO::start('strlen');
 
         $this->assertInstanceOf(Closure::class, $dto->value);
         $this->assertSame(4, ($dto->value)('test'));
@@ -41,7 +41,7 @@ class ResourceDataDTOTest extends TestCase
 
     public function test_int_is_casted_to_string(): void
     {
-        $dto = new ResourceDataDTO(123);
+        $dto = ResourceDataDTO::start(123);
 
         $this->assertSame('123', $dto->value);
     }

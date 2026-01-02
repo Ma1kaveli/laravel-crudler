@@ -73,7 +73,7 @@ class ControllerDeleteBuilder
     }
 
     public function build(): ControllerDeleteDTO {
-        return new ControllerDeleteDTO(
+        return ControllerDeleteDTO::start(
             onceDTO: $this->onceCallableDTO,
             requestTag: $this->requestTag,
             request: $this->request,
