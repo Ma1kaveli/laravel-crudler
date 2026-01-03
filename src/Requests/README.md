@@ -95,14 +95,12 @@ class MyModuleCrudler implements ICrudlerConfig {
 #### Как использовать Request в коде
 1. Получите DTO из конфига: `$requestDto = MyModuleCrudler::BASE_REQUEST_CRUDLER();`.
 2. Создайте CrudlerRequest: `$crudlerRequest = new CrudlerRequest($requestDto);`.
-3. Сгенерируйте FormRequest: `$formRequest = $crudlerRequest->make('tag_create', $rawRequest);` (опционально инжектируйте сырой Request для тестов).
-   - В контроллере инжектируйте как зависимость: `public function store(FormRequest $request)` (Laravel автоматически валидирует).
-   - Для контекстов: Правила применяются автоматически по HTTP-методу (POST → CREATE, PUT/PATCH → UPDATE, DELETE → DELETE).
+3. Сгенерируйте FormRequest: `$formRequest = $crudlerRequest->make('tag_create', $rawRequest);`.
 
 **Пример в контроллере:**
 ```php
 $requestDto = MyModuleCrudler::BASE_REQUEST_CRUDLER();
-$crudlerRequest = new CrudlerRequest($requestDto)->make('tag_create')->validated();
+$crudlerRequest = new CrudlerRequest($requestDto)->make('tag_create');
 ```
 
 #### Примечания

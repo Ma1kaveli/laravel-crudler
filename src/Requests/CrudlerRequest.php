@@ -24,11 +24,11 @@ class CrudlerRequest
      * Создаёт instance FormRequest на основе тега.
      *
      * @param string $tag Имя тега (e.g., 'tag_create')
-     * @param Request|null $rawRequest Опционально: исходный request для инжекции (если нужно)
+     * @param Request $rawRequest Опционально: исходный request для инжекции (если нужно)
      *
      * @return FormRequest
      */
-    public function make(string $tag, ?Request $rawRequest = null): FormRequest
+    public function make(string $tag, Request $rawRequest): FormRequest
     {
         if (!isset($this->dto->tags[$tag])) {
             throw new \InvalidArgumentException("Tag '$tag' not found in DTO");
@@ -49,17 +49,25 @@ class CrudlerRequest
             $instance = new BaseCrudlerFormRequest($config);
         }
 
-        // Если передан rawRequest — manual fill (для тестов или manual)
-        if ($rawRequest) {
-            $instance->initialize(
-                $rawRequest->query() ?? [],
-                $rawRequest->request->all() ?? [],
-                $rawRequest->attributes->all() ?? [],
-                $rawRequest->cookies->all() ?? [],
-                $rawRequest->files->all() ?? [],
-                $rawRequest->server() ?? []
-            );
-        }
+        $instance->initialize(
+            $rawRequest->query() ?? [],
+            $rawRequest->request->all() ?? [],
+            $rawRequest->attributes->all() ?? [],
+            $rawRequest->cookies->all() ?? [],
+            $rawRequest->files->all() ?? [],
+            $rawRequest->server() ?? []
+        );
+
+        // Установка метода для определения контекста
+        $instance->setMethod($rawRequest->method());
+
+        // Установка контейнера для валидатора
+        $instance->setContainer(app());
+
+        $instance->setRedirector(app(\Illuminate\Routing\Redirector::class));
+
+        // Запуск валидации (бросит ValidationException при ошибке)
+        $instance->validateResolved();
 
         return $instance;
     }

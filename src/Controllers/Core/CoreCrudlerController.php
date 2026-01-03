@@ -136,7 +136,8 @@ class CoreCrudlerController extends BaseCrudlerController
 
         if ($request instanceof CrudlerRequestDTO) {
             $request = (new CrudlerRequest($request))->make(
-                $dto->requestTag
+                $dto->requestTag,
+                $this->http->request()
             );
         }
 
@@ -172,7 +173,8 @@ class CoreCrudlerController extends BaseCrudlerController
 
         if ($request instanceof CrudlerRequestDTO) {
             $request = (new CrudlerRequest($request))->make(
-                $dto->requestTag
+                $dto->requestTag,
+                $this->http->request()
             );
         }
 
@@ -213,7 +215,8 @@ class CoreCrudlerController extends BaseCrudlerController
 
         if ($request instanceof CrudlerRequestDTO) {
             $request = (new CrudlerRequest($request))->make(
-                $dto->requestTag
+                $dto->requestTag,
+                $this->http->request()
             )->validated();
         }
 
@@ -247,7 +250,8 @@ class CoreCrudlerController extends BaseCrudlerController
 
         if ($request instanceof CrudlerRequestDTO) {
             $request = (new CrudlerRequest($request))->make(
-                $dto->requestTag
+                $dto->requestTag,
+                $this->http->request()
             )->validated();
         }
 
