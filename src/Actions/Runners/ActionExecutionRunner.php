@@ -22,8 +22,13 @@ final class ActionExecutionRunner
             return $action;
         }
 
-        $success = fn () => $successLog ? $this->successAsyncLog($successLog) : null;
-        $error = fn () => $errorLog ? $this->errorAsyncLog($errorLog) : null;
+        $success = fn () => $successLog
+            ? fn () => $this->successAsyncLog($successLog)
+            : null;
+
+        $error = fn () => $errorLog
+            ? fn (string $e) => $this->errorAsyncLog($errorLog, $e)
+            : null;
 
         if ($config->withTransaction) {
             return $this->transactionConstructionWithFunc(
