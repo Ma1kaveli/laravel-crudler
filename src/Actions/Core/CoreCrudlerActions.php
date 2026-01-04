@@ -4,6 +4,7 @@ namespace Crudler\Actions\Core;
 
 use Core\DTO\ExecutionOptionsDTO;
 use Core\DTO\FormDTO;
+use Core\DTO\OnceDTO;
 use Crudler\Actions\Constants\CrudlerPlaceUniqueEnum;
 use Crudler\Actions\Context\ActionContext;
 use Crudler\Actions\DTO\Parts\ActionCreateDTO;
@@ -18,6 +19,7 @@ use Crudler\Policies\DTO\CrudlerPolicyDTO;
 use Crudler\Policies\Resolvers\CrudlerPolicyResolver;
 use Crudler\Repositories\Core\BaseCrudlerRepository;
 use Crudler\Repositories\DTO\CrudlerRepositoryDTO;
+use Crudler\Repositories\DTO\Parts\ShowOnceById\RepositoryShowOnceConfigDTO;
 use Crudler\Repositories\DTO\Parts\ShowOnceById\RepositoryShowOnceDTO;
 use Crudler\Services\Core\BaseCrudlerService;
 
@@ -48,24 +50,35 @@ class CoreCrudlerActions extends BaseCrudlerActions
         $this->inPipeline = new InActionPipeline();
     }
 
+    protected function getRepositoryDTOForShowOnce(
+        FormDTO $formDTO,
+        bool $withTrashed = false
+    ): CrudlerRepositoryDTO {
+        $defaultConfig = new RepositoryShowOnceConfigDTO(
+            withTrashed: $withTrashed
+        );
+
+        if ($this->repositoryFunction) {
+            $dto = ($this->repositoryFunction)($formDTO);
+
+            if ($dto && $dto->showOnceDTO) {
+                return $dto;
+            }
+        }
+
+        return CrudlerRepositoryDTO::start(
+            uniqueDTO: null,
+            showOnceDTO: new RepositoryShowOnceDTO($formDTO, $defaultConfig)
+        );
+    }
+
     public function _show(ActionShowDTO $dto): mixed
     {
         if (empty($this->repository)) {
-            throw new \Exception('Repository not found!', 404);
+            throw new LogicException('Repository not found!');
         }
 
-        if (empty($this->repositoryFunction)) {
-            throw new LogicException('Repository function not found!');
-        }
-
-        $repositoryDTO = ($this->repositoryFunction)($dto->onceDTO);
-
-        if (empty($repositoryDTO)) {
-            $repositoryDTO = CrudlerRepositoryDTO::start(
-                uniqueDTO: null,
-                showOnceDTO: new RepositoryShowOnceDTO($dto->onceDTO)
-            );
-        }
+        $repositoryDTO = $this->getRepositoryDTOForShowOnce($dto->onceDTO);
 
         $data = $this->repository->_showOnceById($repositoryDTO->showOnceDTO);
 
@@ -94,19 +107,26 @@ class CoreCrudlerActions extends BaseCrudlerActions
         $config = $dto->config;
         $config ??= ExecutionOptionsDTO::make();
 
-        if (empty($this->repositoryFunction)) {
-            throw new LogicException('Repository function not found!');
+        if (empty($this->service)) {
+            throw new LogicException('Service not found!');
         }
 
         if (empty($this->serviceFunction)) {
             throw new LogicException('Service function not found!');
         }
 
-        $repositoryDTO = fn ($formDTO) => ($this->repositoryFunction)($formDTO);
+        $repositoryDTO = fn (FormDTO $formDTO) => ($this->repositoryFunction)($formDTO);
 
         $uniqueCheck = function (FormDTO $formDTO) use ($repositoryDTO, $dto) {
-            if (($repositoryDTO($formDTO) && $dto->placeUnique !== CrudlerPlaceUniqueEnum::none)) {
-                return fn () => $this->repository->_isUnique($repositoryDTO($formDTO)->uniqueDTO);
+            if (
+                !empty($this->repositoryFunction) &&
+                !empty($this->repository) &&
+                $repositoryDTO($formDTO)->uniqueDTO !== null &&
+                $dto->placeUnique !== CrudlerPlaceUniqueEnum::none
+            ) {
+                return fn () => $this->repository->_isUnique(
+                    $repositoryDTO($formDTO)->uniqueDTO
+                );
             }
 
             return null;
@@ -143,24 +163,21 @@ class CoreCrudlerActions extends BaseCrudlerActions
         $config = $dto->config;
         $config ??= ExecutionOptionsDTO::make();
 
-        if (empty($this->repositoryFunction)) {
-            throw new LogicException('Repository function not found!');
+        if (empty($this->repository)) {
+            throw new LogicException('Repository not found!');
+        }
+
+        if (empty($this->service)) {
+            throw new LogicException('Service not found!');
         }
 
         if (empty($this->serviceFunction)) {
             throw new LogicException('Service function not found!');
         }
 
-        $repositoryDTO = fn (FormDTO $formDTO): CrudlerRepositoryDTO => ($this->repositoryFunction)($formDTO);
+        $repositoryDTO = $this->getRepositoryDTOForShowOnce($dto->formDTO);
 
-        if (empty($repositoryDTO->showOnceDTO)) {
-            $repositoryDTO = fn (FormDTO $formDTO) => CrudlerRepositoryDTO::start(
-                uniqueDTO: null,
-                showOnceDTO: new RepositoryShowOnceDTO($formDTO)
-            );
-        }
-
-        $data = $this->repository->_showOnceById($repositoryDTO($dto->formDTO)->showOnceDTO);
+        $data = $this->repository->_showOnceById($repositoryDTO->showOnceDTO);
 
         if (!empty($this->crudlerPolicyDTO)) {
             (new CrudlerPolicyResolver)->resolve(
@@ -172,8 +189,14 @@ class CoreCrudlerActions extends BaseCrudlerActions
         }
 
         $uniqueCheck = function (FormDTO $formDTO) use ($repositoryDTO, $dto) {
-            if (($repositoryDTO($formDTO) && $dto->placeUnique !== CrudlerPlaceUniqueEnum::none)) {
-                return fn () => $this->repository->_isUnique($repositoryDTO($formDTO)->uniqueDTO);
+            if (
+                !empty($this->repositoryFunction) &&
+                $repositoryDTO->uniqueDTO !== null &&
+                $dto->placeUnique !== CrudlerPlaceUniqueEnum::none
+            ) {
+                return fn () => $this->repository->_isUnique(
+                    $repositoryDTO->uniqueDTO
+                );
             }
 
             return null;
@@ -209,6 +232,14 @@ class CoreCrudlerActions extends BaseCrudlerActions
         $config = $dto->config;
         $config ??= ExecutionOptionsDTO::make();
 
+        if (empty($this->repository)) {
+            throw new LogicException('Repository not found!');
+        }
+
+        if (empty($this->service)) {
+            throw new LogicException('Service not found!');
+        }
+
         if (empty($this->repositoryFunction)) {
             throw new LogicException('Repository function not found!');
         }
@@ -217,14 +248,7 @@ class CoreCrudlerActions extends BaseCrudlerActions
             throw new LogicException('Service function not found!');
         }
 
-        $repositoryDTO = ($this->repositoryFunction)($dto->formDTO);
-
-        if (empty($repositoryDTO->showOnceDTO)) {
-            $repositoryDTO = CrudlerRepositoryDTO::start(
-                uniqueDTO: null,
-                showOnceDTO: new RepositoryShowOnceDTO($dto->formDTO)
-            );
-        }
+        $repositoryDTO = $this->getRepositoryDTOForShowOnce($dto->formDTO);
 
         $data = $this->repository->_showOnceById($repositoryDTO->showOnceDTO);
 
@@ -275,6 +299,14 @@ class CoreCrudlerActions extends BaseCrudlerActions
         $config = $dto->config;
         $config ??= ExecutionOptionsDTO::make();
 
+        if (empty($this->repository)) {
+            throw new LogicException('Repository not found!');
+        }
+
+        if (empty($this->service)) {
+            throw new LogicException('Service not found!');
+        }
+
         if (empty($this->repositoryFunction)) {
             throw new LogicException('Repository function not found!');
         }
@@ -283,14 +315,7 @@ class CoreCrudlerActions extends BaseCrudlerActions
             throw new LogicException('Service function not found!');
         }
 
-        $repositoryDTO = ($this->repositoryFunction)($dto->formDTO);
-
-        if (empty($repositoryDTO->showOnceDTO)) {
-            $repositoryDTO = CrudlerRepositoryDTO::start(
-                uniqueDTO: null,
-                showOnceDTO: new RepositoryShowOnceDTO($dto->formDTO)
-            );
-        }
+        $repositoryDTO = $this->getRepositoryDTOForShowOnce($dto->formDTO, true);
 
         $data = $this->repository->_showOnceById($repositoryDTO->showOnceDTO);
 
