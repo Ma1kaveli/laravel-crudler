@@ -9,10 +9,12 @@ use Crudler\Actions\DTO\Parts\ActionCreateDTO;
 use Crudler\Actions\DTO\Parts\ActionDeleteDTO;
 use Crudler\Actions\DTO\Parts\ActionRestoreDTO;
 use Crudler\Actions\DTO\Parts\ActionUpdateDTO;
+use Crudler\Actions\DTO\Parts\BeforeAction\BeforeActionDTO;
 use Crudler\Actions\Hooks\BeforeAction\AfterValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\AfterWithValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\BeforeValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\BeforeWithValidationResult;
+
 use Illuminate\Database\Eloquent\Model;
 
 final class BeforeActionPipeline
@@ -25,7 +27,7 @@ final class BeforeActionPipeline
         ?Model $data
     ): mixed {
         $ctx = new ActionContext();
-        $before = $dto->beforeActionDTO;
+        $before = $dto->beforeActionDTO ?? new BeforeActionDTO();
 
         $isUniqueAt = fn (CrudlerPlaceUniqueEnum $place) =>
             $uniqueCheck && $place === $dto->placeUnique;

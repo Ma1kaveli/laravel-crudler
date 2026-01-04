@@ -7,10 +7,12 @@ use Crudler\Actions\DTO\Parts\ActionCreateDTO;
 use Crudler\Actions\DTO\Parts\ActionDeleteDTO;
 use Crudler\Actions\DTO\Parts\ActionRestoreDTO;
 use Crudler\Actions\DTO\Parts\ActionUpdateDTO;
+use Crudler\Actions\DTO\Parts\InAction\InActionDTO;
 use Crudler\Actions\Hooks\BeforeAction\AfterWithValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\BeforeWithValidationResult;
 use Crudler\Actions\Hooks\InAction\AfterActionResult;
 use Crudler\Actions\Hooks\InAction\BeforeActionResult;
+
 use Illuminate\Database\Eloquent\Model;
 
 final class InActionPipeline
@@ -21,7 +23,7 @@ final class InActionPipeline
         callable $serviceCall,
         ?Model $data
     ): mixed {
-        $in = $dto->inActionDTO;
+        $in = $dto->inActionDTO ?? new InActionDTO();
 
         // Добавляем дефолт для afterWithValidation, если не установлен (на случай, если в BeforePipeline не был хук)
         if (empty($ctx->afterWithValidation)) {
