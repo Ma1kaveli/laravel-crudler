@@ -10,14 +10,14 @@ class AfterActionResult
     public function __construct(
         public readonly FormDTO $formDTO,
         public readonly BeforeActionResult $previous,
-        public readonly Model|array $data,
+        public readonly Model|array|null $data = null,
         public readonly mixed $result = null,
     ) {}
 
     public static function create(
         FormDTO $formDTO,
         BeforeActionResult $previous,
-        Model|array $data,
+        Model|array|null $data = null,
         mixed $result = null
     ): self {
         return new self(
