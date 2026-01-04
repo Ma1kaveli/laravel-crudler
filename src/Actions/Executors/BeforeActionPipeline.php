@@ -13,6 +13,7 @@ use Crudler\Actions\Hooks\BeforeAction\AfterValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\AfterWithValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\BeforeValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\BeforeWithValidationResult;
+use Illuminate\Database\Eloquent\Model;
 
 final class BeforeActionPipeline
 {
@@ -20,7 +21,8 @@ final class BeforeActionPipeline
         ActionUpdateDTO|ActionCreateDTO|ActionDeleteDTO|ActionRestoreDTO $dto,
         callable $serviceAction,
         ?callable $uniqueCheck,
-        ExecutionOptionsDTO $config
+        ExecutionOptionsDTO $config,
+        ?Model $data
     ): mixed {
         $ctx = new ActionContext();
         $before = $dto->beforeActionDTO;
@@ -34,7 +36,7 @@ final class BeforeActionPipeline
 
         // Всегда устанавливаем beforeWithValidation в самом начале
         $ctx->beforeWithValidation = $before->beforeWithValidation
-            ? ($before->beforeWithValidation)($dto->formDTO)
+            ? ($before->beforeWithValidation)($dto->formDTO, $data)
             : BeforeWithValidationResult::create($dto->formDTO);
 
         $dto = $dto->setFormDTO($ctx->beforeWithValidation->formDTO);
@@ -50,7 +52,7 @@ final class BeforeActionPipeline
             }
 
             if ($before->beforeValidation) {
-                $ctx->beforeValidation = ($before->beforeValidation)($ctx->beforeWithValidation);
+                $ctx->beforeValidation = ($before->beforeValidation)($ctx->beforeWithValidation, $data);
                 $dto = $dto->setFormDTO($ctx->beforeValidation->formDTO);
             } else {
                 // Дефолт для beforeValidation, если нужно (аналогично другим)
@@ -66,7 +68,7 @@ final class BeforeActionPipeline
             }
 
             if ($before->afterValidation) {
-                $ctx->afterValidation = ($before->afterValidation)($ctx->beforeValidation);
+                $ctx->afterValidation = ($before->afterValidation)($ctx->beforeValidation, $data);
                 $dto = $dto->setFormDTO($ctx->afterValidation->formDTO);
             } else {
                 // Дефолт для afterValidation
@@ -85,7 +87,8 @@ final class BeforeActionPipeline
         if ($before->afterWithValidation) {
             $ctx->afterWithValidation = ($before->afterWithValidation)(
                 $ctx->beforeWithValidation,
-                $ctx->afterValidation
+                $ctx->afterValidation,
+                $data
             );
             $dto = $dto->setFormDTO($ctx->afterWithValidation->formDTO);
         } else {

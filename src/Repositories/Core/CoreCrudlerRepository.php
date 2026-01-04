@@ -8,7 +8,6 @@ use Crudler\Repositories\DTO\Parts\Unique\RepositoryUniqueDTO;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Logger\Facades\LaravelLog;
-use LogicException;
 
 class CoreCrudlerRepository extends BaseCrudlerRepository
 {
@@ -22,9 +21,9 @@ class CoreCrudlerRepository extends BaseCrudlerRepository
      *
      * @param RepositoryUniqueDTO $dto
      *
-     * @return bool|LogicException
+     * @return bool|Exception
      */
-    public function _isUnique(RepositoryUniqueDTO $dto): bool|LogicException
+    public function _isUnique(RepositoryUniqueDTO $dto): bool|Exception
     {
         return $this->isUnique(
             $dto->formDTO,
@@ -39,9 +38,9 @@ class CoreCrudlerRepository extends BaseCrudlerRepository
      *
      * @param RepositoryShowOnceDTO $dto
      *
-     * @return Model|LogicException
+     * @return Model|Exception
      */
-    public function _showOnceById(RepositoryShowOnceDTO $dto): Model|LogicException
+    public function _showOnceById(RepositoryShowOnceDTO $dto): Model|Exception
     {
         $config = $dto->isCallable() ? ($dto->config)($dto->formDTO) : $dto->config;
 

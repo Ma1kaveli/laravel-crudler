@@ -11,13 +11,15 @@ use Crudler\Actions\Hooks\BeforeAction\AfterWithValidationResult;
 use Crudler\Actions\Hooks\BeforeAction\BeforeWithValidationResult;
 use Crudler\Actions\Hooks\InAction\AfterActionResult;
 use Crudler\Actions\Hooks\InAction\BeforeActionResult;
+use Illuminate\Database\Eloquent\Model;
 
 final class InActionPipeline
 {
     public function execute(
         ActionUpdateDTO|ActionCreateDTO|ActionDeleteDTO|ActionRestoreDTO $dto,
         ActionContext $ctx,
-        callable $serviceCall
+        callable $serviceCall,
+        ?Model $data
     ): mixed {
         $in = $dto->inActionDTO;
 
@@ -33,7 +35,7 @@ final class InActionPipeline
         }
 
         if ($in->beforeAction) {
-            $ctx->beforeAction = ($in->beforeAction)($ctx->afterWithValidation);
+            $ctx->beforeAction = ($in->beforeAction)($ctx->afterWithValidation, $data);
             $dto = $dto->setFormDTO($ctx->beforeAction->formDTO);
         } else {
             // Дефолт, если хук не указан

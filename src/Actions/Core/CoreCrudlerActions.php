@@ -4,7 +4,6 @@ namespace Crudler\Actions\Core;
 
 use Core\DTO\ExecutionOptionsDTO;
 use Core\DTO\FormDTO;
-use Core\DTO\OnceDTO;
 use Crudler\Actions\Constants\CrudlerPlaceUniqueEnum;
 use Crudler\Actions\Context\ActionContext;
 use Crudler\Actions\DTO\Parts\ActionCreateDTO;
@@ -143,10 +142,12 @@ class CoreCrudlerActions extends BaseCrudlerActions
                             $serviceDTO = ($this->serviceFunction)($dto->formDTO);
 
                             return $this->service->_create($serviceDTO->createDTO);
-                        }
+                        },
+                        data: null
                     ),
                 uniqueCheck: $uniqueCheck,
-                config: $config
+                config: $config,
+                data: null
             );
 
         return $this->runner->run(
@@ -213,10 +214,12 @@ class CoreCrudlerActions extends BaseCrudlerActions
                             $serviceDTO = ($this->serviceFunction)($dto->formDTO, $data);
 
                             return $this->service->_update($serviceDTO->updateDTO);
-                        }
+                        },
+                        data: $data
                     ),
                 uniqueCheck: $uniqueCheck,
-                config: $config
+                config: $config,
+                data: $data
             );
 
         return $this->runner->run(
@@ -280,10 +283,12 @@ class CoreCrudlerActions extends BaseCrudlerActions
                             }
 
                             return $data;
-                        }
+                        },
+                        data: $data
                     ),
                 uniqueCheck: null,
-                config: $config
+                config: $config,
+                data: $data
             );
 
         return $this->runner->run(
@@ -339,10 +344,12 @@ class CoreCrudlerActions extends BaseCrudlerActions
                             $serviceDTO = ($this->serviceFunction)($dto->formDTO, $data);
 
                             return $this->service->_restore($serviceDTO->restoreDTO);
-                        }
+                        },
+                        data: $data
                     ),
                 uniqueCheck: null,
-                config: $config
+                config: $config,
+                data: $data
             );
 
         return $this->runner->run(
