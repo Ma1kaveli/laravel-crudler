@@ -7,7 +7,9 @@ use Crudler\Controllers\Interfaces\IUpdateCallableDTO;
 use Crudler\Requests\DTO\CrudlerRequestDTO;
 
 use Core\DTO\FormDTO;
+use Crudler\Adapters\ClosureHookAdapter;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use LogicException;
 
 class ControllerUpdateBuilder
@@ -22,10 +24,24 @@ class ControllerUpdateBuilder
 
     public ?string $successMessage = null;
 
-    public static function make(IUpdateCallableDTO|FormDTO $formDTO): self
+    /**
+     * Summary of make
+     *
+     * @param FormDTO|IUpdateCallableDTO|callable(Request $request, int $id): FormDTO $formDTO
+     *
+     * @return ControllerUpdateBuilder
+     */
+    public static function make(IUpdateCallableDTO|callable|FormDTO $formDTO): self
     {
         $builder = new self();
-        $builder->formDTO = $formDTO;
+
+        $builder->formDTO = ($formDTO instanceof IUpdateCallableDTO || $formDTO instanceof FormDTO)
+            ? $formDTO
+            : new class($formDTO) extends ClosureHookAdapter implements IUpdateCallableDTO {
+                public function __invoke(Request $request, int $id): FormDTO {
+                    return ($this->closure)($request, $id);
+                }
+            };
 
         return $builder;
     }

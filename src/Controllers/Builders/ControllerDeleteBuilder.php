@@ -2,6 +2,8 @@
 
 namespace Crudler\Controllers\Builders;
 
+use Core\DTO\OnceDTO;
+use Crudler\Adapters\ClosureHookAdapter;
 use Crudler\Controllers\DTO\Parts\ControllerDeleteDTO;
 use Crudler\Controllers\Interfaces\IOnceFormCallableDTO;
 use Crudler\Requests\DTO\CrudlerRequestDTO;
@@ -24,9 +26,22 @@ class ControllerDeleteBuilder
         return new self();
     }
 
-    public function onceCallableDTO(IOnceFormCallableDTO $onceCallableDTO): self
+    /**
+     * Summary of onceCallableDTO
+     *
+     * @param IOnceFormCallableDTO|callable(Request $request, int $id): OnceDTO $onceCallableDTO
+     *
+     * @return ControllerDeleteBuilder
+     */
+    public function onceCallableDTO(IOnceFormCallableDTO|callable $onceCallableDTO): self
     {
-        $this->onceCallableDTO = $onceCallableDTO;
+        $this->onceCallableDTO = ($onceCallableDTO instanceof IOnceFormCallableDTO)
+            ? $onceCallableDTO
+            : new class($onceCallableDTO) extends ClosureHookAdapter implements IOnceFormCallableDTO {
+                public function __invoke(Request $request, int $id): OnceDTO {
+                    return ($this->closure)($request, $id);
+                }
+            };
 
         return $this;
     }

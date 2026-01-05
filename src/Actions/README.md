@@ -57,12 +57,8 @@ class MyModuleCrudler implements ICrudlerConfig {
     public static function FULL_ACTION_CRUDLER(FormDTO|OnceDTO $dto, ...$args): ?CrudlerActionDTO
     {
         $builder = ActionBuilder::make($dto)
-            ->repositoryFunction(
-                new class implements IRepositoryFunction {
-                    public function __invoke(FormDTO $dto, ...$args): CrudlerRepositoryDTO {
-                        return MyModuleCrudler::FULL_REPOSITORY_CRUDLER($dto);
-                    }
-                }
+            ->repositoryFunction(fn (FormDTO $dto, ...$args): CrudlerRepositoryDTO =>
+                MyModuleCrudler::FULL_REPOSITORY_CRUDLER($dto)
             )->serviceFunction(
                 new class implements IServiceFunction {
                     public function __invoke(FormDTO $dto, ?Model $data = null, ...$args): CrudlerServiceDTO
@@ -81,17 +77,14 @@ class MyModuleCrudler implements ICrudlerConfig {
                     ->errorLog(LoggerSlugs::MODEL_UPDATE_SLUG)
                     ->beforeActionBuilder(
                         BeforeActionBuilder::make()->setBeforeValidation(
-                            new class implements IBeforeValidation {
-                                public function __invoke(BeforeWithValidationResult $result): BeforeValidationResult {
-                                    return BeforeValidationResult::create(
-                                        formDTO: $result->formDTO,
-                                        previous: $result,
-                                        result: [
-                                            'something_to_other_step' => true
-                                        ]
-                                    );
-                                }
-                            }
+                            fn (BeforeWithValidationResult $result): BeforeValidationResult =>
+                                BeforeValidationResult::create(
+                                    formDTO: $result->formDTO,
+                                    previous: $result,
+                                    result: [
+                                        'something_to_other_step' => true
+                                    ]
+                                )
                         )
                     )
                     ->buildUpdate()
@@ -194,17 +187,14 @@ class MyModuleCrudler implements ICrudlerConfig {
             ->errorLog(LoggerSlugs::MODEL_UPDATE_SLUG)
             ->beforeActionBuilder(
                 BeforeActionBuilder::make()->setBeforeValidation(
-                    new class implements IBeforeValidation {
-                        public function __invoke(BeforeWithValidationResult $result): BeforeValidationResult {
-                            return BeforeValidationResult::create(
-                                formDTO: $result->formDTO,
-                                previous: $result,
-                                result: [
-                                    'something_to_other_step' => true
-                                ]
-                            );
-                        }
-                    }
+                    fn (BeforeWithValidationResult $result): BeforeValidationResult =>
+                        BeforeValidationResult::create(
+                            formDTO: $result->formDTO,
+                            previous: $result,
+                            result: [
+                                'something_to_other_step' => true
+                            ]
+                        )
                 )
             )
             ->buildUpdate();
@@ -271,11 +261,8 @@ class MyModuleCrudler implements ICrudlerConfig {
 ```php
 $before = BeforeActionBuilder::make()
     ->setBeforeWithValidation(
-        new class implements IBeforeWithValidation {
-            public function __invoke(FormDTO $dto): BeforeWithValidationResult {
-                return BeforeWithValidationResult::create($dto);
-            }
-        }
+        fn (FormDTO $dto): BeforeWithValidationResult =>
+            BeforeWithValidationResult::create($dto)
     )
     ->build();
 ```

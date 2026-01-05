@@ -2,12 +2,15 @@
 
 namespace Crudler\Actions\Builders;
 
-use Core\DTO\OnceDTO;
+use Crudler\Adapters\ClosureHookAdapter;
 use Crudler\Actions\DTO\Parts\ActionShowDTO;
 use Crudler\Actions\Interfaces\{
     IShowAfterAction,
     IShowReturnAction
 };
+
+use Core\DTO\OnceDTO;
+use Illuminate\Database\Eloquent\Model;
 
 class ActionShowBuilder
 {
@@ -26,16 +29,42 @@ class ActionShowBuilder
         return $builder;
     }
 
-    public function after(IShowAfterAction $after): self
+    /**
+     * Summary of after
+     *
+     * @param IShowAfterAction|callable(OnceDTO $dto, Model $data): mixed $after
+     *
+     * @return ActionShowBuilder
+     */
+    public function after(IShowAfterAction|callable $after): self
     {
-        $this->after = $after;
+        $this->after = $after instanceof IShowAfterAction
+            ? $after
+            : new class($after) extends ClosureHookAdapter implements IShowAfterAction {
+                public function __invoke(OnceDTO $dto, Model $data): mixed {
+                    return ($this->closure)($dto, $data);
+                }
+            };
 
         return $this;
     }
 
-    public function return(IShowReturnAction $return): self
+    /**
+     * Summary of return
+     *
+     * @param IShowReturnAction|callable(OnceDTO $dto, Model $data, mixed $afterResult = null): mixed $return
+     *
+     * @return ActionShowBuilder
+     */
+    public function return(IShowReturnAction|callable $return): self
     {
-        $this->return = $return;
+        $this->return = $return instanceof IShowReturnAction
+            ? $return
+            : new class($return) extends ClosureHookAdapter implements IShowReturnAction {
+                public function __invoke(OnceDTO $dto, Model $data, mixed $afterResult = null): mixed {
+                    return ($this->closure)($dto, $data, $afterResult);
+                }
+            };
 
         return $this;
     }

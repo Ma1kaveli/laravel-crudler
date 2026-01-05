@@ -7,7 +7,9 @@ use Crudler\Controllers\Interfaces\ICreateCallableDTO;
 use Crudler\Requests\DTO\CrudlerRequestDTO;
 
 use Core\DTO\FormDTO;
+use Crudler\Adapters\ClosureHookAdapter;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use LogicException;
 
 class ControllerCreateBuilder
@@ -22,10 +24,24 @@ class ControllerCreateBuilder
 
     public ?string $successMessage = null;
 
-    public static function make(ICreateCallableDTO|FormDTO $formDTO): self
+    /**
+     * Summary of make
+     *
+     * @param FormDTO|ICreateCallableDTO|callable(Request $request): FormDTO $formDTO
+     *
+     * @return ControllerCreateBuilder
+     */
+    public static function make(ICreateCallableDTO|callable|FormDTO $formDTO): self
     {
         $builder = new self();
-        $builder->formDTO = $formDTO;
+
+        $builder->formDTO = ($formDTO instanceof ICreateCallableDTO || $formDTO instanceof FormDTO)
+            ? $formDTO
+            : new class($formDTO) extends ClosureHookAdapter implements ICreateCallableDTO {
+                public function __invoke(Request $request): FormDTO {
+                    return ($this->closure)($request);
+                }
+            };
 
         return $builder;
     }

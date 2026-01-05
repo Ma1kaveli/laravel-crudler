@@ -11,6 +11,7 @@ use Crudler\Repositories\Interfaces\{
 
 use Core\DTO\FormDTO;
 use Closure;
+use Crudler\Adapters\ClosureHookAdapter;
 
 final class RepositoryShowOnceBuilder
 {
@@ -76,16 +77,36 @@ final class RepositoryShowOnceBuilder
         return $this;
     }
 
-    public function closure(IShowOnceByIdCallable $closure): self
+    /**
+     * Summary of closure
+     *
+     * @param IShowOnceByIdCallable|callable(FormDTO $formDTO): RepositoryShowOnceConfigDTO $closure
+     *
+     * @return RepositoryShowOnceBuilder
+     */
+    public function closure(IShowOnceByIdCallable|callable $closure): self
     {
-        $this->config = $closure;
+        $this->config = $closure instanceof IShowOnceByIdCallable
+            ? $closure
+            : new class($closure) extends ClosureHookAdapter implements IShowOnceByIdCallable {
+                public function __invoke(FormDTO $formDTO): RepositoryShowOnceConfigDTO {
+                    return ($this->closure)($formDTO);
+                }
+            };
 
         return $this;
     }
 
-    public function fromConfig(array|IFromConfigCallable $config): self
+    /**
+     * Summary of fromConfig
+     *
+     * @param array|IFromConfigCallable|callable(FormDTO $formDTO): array $config
+     *
+     * @return RepositoryShowOnceBuilder
+     */
+    public function fromConfig(array|IFromConfigCallable|callable $config): self
     {
-        if ($config instanceof IFromConfigCallable) {
+        if (!is_array($config)) {
             $this->fromConfig(
                 ($config)($this->dto)
             );

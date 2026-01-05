@@ -2,8 +2,11 @@
 
 namespace Crudler\Controllers\Builders;
 
+use Core\DTO\OnceDTO;
+use Crudler\Adapters\ClosureHookAdapter;
 use Crudler\Controllers\DTO\Parts\ControllerShowDTO;
 use Crudler\Controllers\Interfaces\IShowCallableDTO;
+use Illuminate\Http\Request;
 
 class ControllerShowBuilder
 {
@@ -15,9 +18,22 @@ class ControllerShowBuilder
         return new self();
     }
 
+    /**
+     * Summary of showCallableDTO
+     *
+     * @param IShowCallableDTO|callable(Request $request, int $id): OnceDTO $showCallableDTO
+     *
+     * @return ControllerShowBuilder
+     */
     public function showCallableDTO(IShowCallableDTO $showCallableDTO): self
     {
-        $this->showCallableDTO = $showCallableDTO;
+        $this->showCallableDTO = ($showCallableDTO instanceof IShowCallableDTO)
+            ? $showCallableDTO
+            : new class($showCallableDTO) extends ClosureHookAdapter implements IShowCallableDTO {
+                public function __invoke(Request $request, int $id): OnceDTO {
+                    return ($this->closure)($request, $id);
+                }
+            };
 
         return $this;
     }

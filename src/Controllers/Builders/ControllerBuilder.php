@@ -16,6 +16,9 @@ use Crudler\Resources\DTO\CrudlerResourceDTO;
 
 use Core\DTO\FormDTO;
 use Core\Resources\BaseResource;
+use Crudler\Adapters\ClosureHookAdapter;
+use Crudler\Actions\DTO\CrudlerActionDTO;
+use Illuminate\Http\Request;
 use LogicException;
 
 class ControllerBuilder
@@ -47,9 +50,22 @@ class ControllerBuilder
         return $this;
     }
 
+    /**
+     * Summary of action
+     *
+     * @param IActionFunction(FormDTO $dto, ...$args): CrudlerActionDTO $actionFunction
+     *
+     * @return ControllerBuilder
+     */
     public function action(IActionFunction $actionFunction): self
     {
-        $this->actionFunction = $actionFunction;
+        $this->actionFunction = $actionFunction instanceof IActionFunction
+            ? $actionFunction
+            : new class($actionFunction) extends ClosureHookAdapter implements IActionFunction {
+                public function __invoke(FormDTO $dto, ...$args): CrudlerActionDTO {
+                    return ($this->closure)($dto, ...$args);
+                }
+            };
 
         return $this;
     }
@@ -126,10 +142,20 @@ class ControllerBuilder
         return $this->restoreDTO($builder->build());
     }
 
+    /**
+     * Summary of fromConfig
+     *
+     * @param array $config
+     *
+     * @param FormDTO|ICreateCallableDTO|callable(Request $request): FormDTO $createDTO
+     * @param FormDTO|IUpdateCallableDTO|callable(Request $request, int $id): FormDTO $updateDTO
+     *
+     * @return ControllerBuilder
+     */
     public function fromConfig(
         array $config,
-        ICreateCallableDTO|FormDTO|null $createDTO = null,
-        IUpdateCallableDTO|FormDTO|null $updateDTO = null
+        ICreateCallableDTO|callable|FormDTO|null $createDTO = null,
+        IUpdateCallableDTO|callable|FormDTO|null $updateDTO = null
     ): self {
         if (isset($config['list'])) {
             $this->listBuilder(

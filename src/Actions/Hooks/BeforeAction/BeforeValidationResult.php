@@ -4,10 +4,18 @@ namespace Crudler\Actions\Hooks\BeforeAction;
 
 use Core\DTO\FormDTO;
 
+/**
+ * @template TResult
+ * @template TPreviousResult
+ */
 class BeforeValidationResult {
     public function __construct(
         public readonly FormDTO $formDTO,
+
+        /** @var BeforeWithValidationResult<TPreviousResult> */
         public readonly BeforeWithValidationResult $previous,
+        
+        /** @var TResult|null */
         public readonly mixed $result = null,
     ) {}
 

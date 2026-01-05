@@ -2,17 +2,21 @@
 
 namespace Crudler\Actions\Builders;
 
-use Core\DTO\FormDTO;
-use Core\DTO\OnceDTO;
 use Crudler\Actions\DTO\CrudlerActionDTO;
 use Crudler\Actions\DTO\Parts\ActionCreateDTO;
 use Crudler\Actions\DTO\Parts\ActionDeleteDTO;
 use Crudler\Actions\DTO\Parts\ActionRestoreDTO;
 use Crudler\Actions\DTO\Parts\ActionShowDTO;
 use Crudler\Actions\DTO\Parts\ActionUpdateDTO;
+use Crudler\Repositories\DTO\CrudlerRepositoryDTO;
 use Crudler\Repositories\Interfaces\IRepositoryFunction;
+use Crudler\Services\DTO\CrudlerServiceDTO;
 use Crudler\Services\Interfaces\IServiceFunction;
 
+use Core\DTO\FormDTO;
+use Core\DTO\OnceDTO;
+use Crudler\Adapters\ClosureHookAdapter;
+use Illuminate\Database\Eloquent\Model;
 use LogicException;
 
 class ActionBuilder
@@ -36,16 +40,42 @@ class ActionBuilder
         return new self();
     }
 
-    public function repositoryFunction(IRepositoryFunction $repositoryFunction): self
+    /**
+     * Summary of repositoryFunction
+     *
+     * @param IRepositoryFunction|callable(FormDTO $dto, ...$args): CrudlerRepositoryDTO $repositoryFunction
+     *
+     * @return ActionBuilder
+     */
+    public function repositoryFunction(IRepositoryFunction|callable $repositoryFunction): self
     {
-        $this->repositoryFunction = $repositoryFunction;
+        $this->repositoryFunction = $repositoryFunction instanceof IRepositoryFunction
+            ? $repositoryFunction
+            : new class($repositoryFunction) extends ClosureHookAdapter implements IRepositoryFunction {
+                public function __invoke(FormDTO $dto, ...$args): CrudlerRepositoryDTO {
+                    return ($this->closure)($dto, ...$args);
+                }
+            };
 
         return $this;
     }
 
-    public function serviceFunction(IServiceFunction $serviceFunction): self
+    /**
+     * Summary of serviceFunction
+     *
+     * @param IServiceFunction|callable(FormDTO $dto, ?Model $data = null, ...$args): CrudlerServiceDTO $serviceFunction
+     *
+     * @return ActionBuilder
+     */
+    public function serviceFunction(IServiceFunction|callable $serviceFunction): self
     {
-        $this->serviceFunction = $serviceFunction;
+        $this->serviceFunction = $serviceFunction instanceof IServiceFunction
+            ? $serviceFunction
+            : new class($serviceFunction) extends ClosureHookAdapter implements IServiceFunction {
+                public function __invoke(FormDTO $dto, ?Model $data = null, ...$args): CrudlerServiceDTO {
+                    return ($this->closure)($dto, $data, ...$args);
+                }
+            };
 
         return $this;
     }

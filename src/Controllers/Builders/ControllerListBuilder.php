@@ -7,6 +7,8 @@ use Crudler\Controllers\DTO\Parts\List\ListConfigDTO;
 use Crudler\Controllers\Interfaces\IListCallableDTO;
 
 use Core\Interfaces\IListDTO;
+use Crudler\Adapters\ClosureHookAdapter;
+use Illuminate\Http\Request;
 
 class ControllerListBuilder
 {
@@ -23,9 +25,22 @@ class ControllerListBuilder
         return new self();
     }
 
-    public function dto(IListCallableDTO|IListDTO|ListConfigDTO $dto): self
+    /**
+     * Summary of dto
+     *
+     * @param IListCallableDTO|IListDTO|ListConfigDTO|callable(Request $request): IListDTO $dto
+     *
+     * @return ControllerListBuilder
+     */
+    public function dto(IListCallableDTO|IListDTO|ListConfigDTO|callable $dto): self
     {
-        $this->dto = $dto;
+        $this->dto = is_callable($dto)
+            ? new class($dto) extends ClosureHookAdapter implements IListCallableDTO {
+                public function __invoke(Request $request): IListDTO {
+                    return ($this->closure)($request);
+                }
+            }
+            : $dto;
 
         return $this;
     }

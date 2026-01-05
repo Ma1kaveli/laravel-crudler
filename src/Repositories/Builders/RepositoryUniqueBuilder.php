@@ -10,6 +10,7 @@ use Crudler\Repositories\Interfaces\{
 };
 
 use Core\DTO\FormDTO;
+use Crudler\Adapters\ClosureHookAdapter;
 use Exception;
 
 final class RepositoryUniqueBuilder
@@ -38,9 +39,22 @@ final class RepositoryUniqueBuilder
         return $this;
     }
 
-    public function closure(IUniqueItemCallable $closure): self
+    /**
+     * Summary of closure
+     *
+     * @param IUniqueItemCallable|callable(FormDTO $formDTO): array $closure
+     *
+     * @return RepositoryUniqueBuilder
+     */
+    public function closure(IUniqueItemCallable|callable $closure): self
     {
-        $this->uniques = $closure;
+        $this->uniques = $closure instanceof IUniqueItemCallable
+            ? $closure
+            : new class($closure) extends ClosureHookAdapter implements IUniqueItemCallable {
+                public function __invoke(FormDTO $formDTO): array {
+                    return ($this->closure)($formDTO);
+                }
+            };
 
         return $this;
     }
@@ -68,10 +82,17 @@ final class RepositoryUniqueBuilder
         return $this;
     }
 
+    /**
+     * Summary of fromConfig
+     *
+     * @param array|IFromConfigCallable|callable(FormDTO $formDTO): array $config
+     *
+     * @return RepositoryUniqueBuilder|Exception
+     */
     public function fromConfig(
-        array|IFromConfigCallable $config
+        array|IFromConfigCallable|callable $config
     ): self {
-        if ($config instanceof IFromConfigCallable) {
+        if (!is_array($config)) {
             $this->fromConfig(
                 ($config)($this->dto)
             );
