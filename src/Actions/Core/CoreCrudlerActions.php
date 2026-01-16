@@ -123,7 +123,7 @@ class CoreCrudlerActions extends BaseCrudlerActions
                 $repositoryDTO($formDTO)->uniqueDTO !== null &&
                 $dto->placeUnique !== CrudlerPlaceUniqueEnum::none
             ) {
-                return fn () => $this->repository->_isUnique(
+                return $this->repository->_isUnique(
                     $repositoryDTO($formDTO)->uniqueDTO
                 );
             }
@@ -195,7 +195,7 @@ class CoreCrudlerActions extends BaseCrudlerActions
                 $repositoryDTO->uniqueDTO !== null &&
                 $dto->placeUnique !== CrudlerPlaceUniqueEnum::none
             ) {
-                return fn () => $this->repository->_isUnique(
+                return $this->repository->_isUnique(
                     $repositoryDTO->uniqueDTO
                 );
             }
