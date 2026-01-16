@@ -96,7 +96,7 @@ class CoreCrudlerService extends BaseCrudlerService
      *
      * @return array
      */
-    public function _destroy(ServiceDeleteDTO $dto): array
+    public function _delete(ServiceDeleteDTO $dto): array
     {
         if (empty($dto->data)) {
             throw new LogicException('Destroy not supported');
