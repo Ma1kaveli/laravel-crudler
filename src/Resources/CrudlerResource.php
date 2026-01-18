@@ -73,9 +73,6 @@ class CrudlerResource {
                     $selectedRaw[$field] = $allAdditionalRaw[$field];
                 }
             }
-        } else {
-            // Если пусто — берём все
-            $selectedRaw = $allAdditionalRaw;
         }
 
         return $selectedRaw;
