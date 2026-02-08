@@ -96,9 +96,9 @@ final class BeforeActionPipeline
         } else {
             // Добавляем дефолт для afterWithValidation, если хук не указан
             $ctx->afterWithValidation = AfterWithValidationResult::create(
-                $ctx->beforeWithValidation->formDTO,
+                $ctx->afterValidation->formDTO,
                 $ctx->beforeWithValidation,
-                $ctx->afterValidation ?? null,
+                $ctx->afterValidation,
                 null
             );
             $dto = $dto->setFormDTO($ctx->afterWithValidation->formDTO);
